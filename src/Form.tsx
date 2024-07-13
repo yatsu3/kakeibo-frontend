@@ -1,20 +1,27 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import DatePicker, {registerLocale} from 'react-datepicker';
 import {ja} from 'date-fns/locale';
 import "react-datepicker/dist/react-datepicker.css"
 import "../src/Common.css";
+import { GlobalContext } from "./context/GlobalContext";
 const Form: React.FC = () => {
+    const {isExpenses, setIsExpenses} = useContext(GlobalContext);
 
     const [date, setDate] = useState(new Date());
     const [contents, setContents] = useState("");
-    const [category, setCategory] = useState("食費");
-    const [expenditure ,setExpenditure] = useState("");
+    const [category, setCategory] = useState("");
+    const [subTotal ,setSubTotal] = useState("");
+
+    useEffect(() => {
+      setCategory(isExpenses ? "食費" : "給料")
+    }, [isExpenses]);
 
     const kakeiboInfo = {
       date,
       contents,
       category,
-      expenditure
+      subTotal,
+      isExpenses
     }
 
     registerLocale('ja', ja);
@@ -27,8 +34,8 @@ const Form: React.FC = () => {
       setCategory(event.target.value);
     }
 
-    const handleChangeExpenditure = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setExpenditure(event.target.value);
+    const handleChangesubTotal = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSubTotal(event.target.value);
     }
 
     const registerKakeibo = async () => {
@@ -45,7 +52,7 @@ const Form: React.FC = () => {
         });
         setContents("");
         setCategory("食費");
-        setExpenditure("");
+        setSubTotal("");
       } catch (error) {
         console.error("ERROR!")
       }
@@ -68,6 +75,7 @@ const Form: React.FC = () => {
             <input type="text" placeholder="パスタ" value={contents} onChange={handleChangeContents}></input>
           </span>
           <span>カテゴリー：
+            {isExpenses ?
             <select id="dropdown" className="dropdown" onChange={handleChangeCategory} value={category}>
               <option value="食費">食費</option>
               <option value="雑費">雑費</option>
@@ -75,11 +83,21 @@ const Form: React.FC = () => {
               <option value="固定費">固定費</option>
               <option value="その他">その他</option>
             </select>
+            :
+            <select id="dropdown" className="dropdown" onChange={handleChangeCategory} value={category}>
+              <option value="給料">給料</option>
+              <option value="副業">副業</option>
+              <option value="臨時収入">臨時収入</option>
+              <option value="おこづかい">おこづかい</option>
+              <option value="その他">その他</option>
+            </select>}
           </span>
           <span>合計：
-            <input type="number" value={expenditure} onChange={handleChangeExpenditure}></input>
+            <input type="number" value={subTotal} onChange={handleChangesubTotal}></input>
           </span>
-          <input type="button" value="入力する" onClick={registerKakeibo} className="register-btn"/>
+          {isExpenses ? <input type="button" value="支出を入力" onClick={registerKakeibo} className="register-btn"/>
+          :
+          <input type="button" value="収入を入力" onClick={registerKakeibo} className="register-btn"/>}
         </div>
       </>
     );
