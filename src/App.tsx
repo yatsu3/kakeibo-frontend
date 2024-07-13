@@ -9,7 +9,7 @@ function App() {
     try {
         const name: string = inputName.current!.value;
         const age: number = parseInt(inputAge.current!.value);
-        const response = await fetch(`${process.env.REACT_APP_REGISTER_INFO_URL}/register-info`, {
+        const response = await fetch(`${process.env.REACT_APP_KAKEIBO_LOCAL_URL}/register-info`, {
         method: "POST",
         headers: {
           "Content-Type" : "application/json",
@@ -20,7 +20,6 @@ function App() {
         body: JSON.stringify({name, age})
       });
   
-      // const data = await response.json();
     } catch (error) {
       console.error("ERROR!")
     }
