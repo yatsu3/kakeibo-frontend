@@ -5,15 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Header from './Header';
 import Form from './Form';
+import {GlobalProvider} from './context/GlobalContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Header />
-    <Form />
-    <App />
+    <GlobalProvider>
+      <Header />
+      <Form />
+      <App />
+    </GlobalProvider>
   </React.StrictMode>
 );
 

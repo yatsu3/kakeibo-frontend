@@ -14,3 +14,11 @@
 .test {
     background-color: red;;
 }
+
+.expenses-btn.active {
+    color: orange;
+}
+
+.income-btn.active {
+    color: palevioletred;
+}
