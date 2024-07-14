@@ -5,12 +5,11 @@ import "react-datepicker/dist/react-datepicker.css"
 import "../src/Common.css";
 import { GlobalContext } from "./context/GlobalContext";
 const Form: React.FC = () => {
+    const {date, setDate} = useContext(GlobalContext);
+    const {contents, setContents} = useContext(GlobalContext);
+    const {category, setCategory} = useContext(GlobalContext);
+    const {subTotal ,setSubTotal} = useContext(GlobalContext);
     const {isExpenses, setIsExpenses} = useContext(GlobalContext);
-
-    const [date, setDate] = useState(new Date());
-    const [contents, setContents] = useState("");
-    const [category, setCategory] = useState("");
-    const [subTotal ,setSubTotal] = useState("");
 
     useEffect(() => {
       setCategory(isExpenses ? "食費" : "給料")

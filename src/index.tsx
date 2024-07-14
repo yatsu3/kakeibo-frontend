@@ -6,18 +6,23 @@ import reportWebVitals from './reportWebVitals';
 import Header from './Header';
 import Form from './Form';
 import {GlobalProvider} from './context/GlobalContext';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Report from './Report';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
     <GlobalProvider>
-      <Header />
-      <Form />
-      <App />
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Form />} />
+          <Route path="/report" element={<Report />} />
+        </Routes>
+        <App />
+      </Router>
     </GlobalProvider>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
