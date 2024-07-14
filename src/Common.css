@@ -22,3 +22,18 @@
 .income-btn.active {
     color: palevioletred;
 }
+
+.table-design {
+    width: 100%;
+    border-collapse: collapse;
+}
+  
+.table-design th,
+.table-design td {
+border: 1px solid black;
+padding: 8px;
+text-align: left;
+}
+.table-design th {
+    background-color: #add8e6;
+}
