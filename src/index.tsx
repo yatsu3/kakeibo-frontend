@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Header from './Header';
 import Form from './Form';
@@ -20,7 +19,6 @@ root.render(
           <Route path="/" element={<Form />} />
           <Route path="/report" element={<Report />} />
         </Routes>
-        <App />
       </Router>
     </GlobalProvider>
 );
