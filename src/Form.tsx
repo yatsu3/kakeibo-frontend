@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-// import DatePicker, {registerLocale} from 'react-datepicker';
 import {ja} from 'date-fns/locale';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
