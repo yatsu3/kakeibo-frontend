@@ -1,8 +1,9 @@
 import React, { createContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
 
 interface GlobalContextProps {
-    date: Date;
-    setDate: (value: Date) => void;
+    date: Dayjs;
+    setDate: (value: Dayjs) => void;
     contents: string;
     setContents: (value: string) => void;
     category: string;
@@ -14,7 +15,7 @@ interface GlobalContextProps {
 }
 
 const defaultState = {
-    date: new Date(),
+    date: dayjs(),
     setDate: () => {},
     contents: '',
     setContents: () => {},
@@ -29,7 +30,7 @@ const defaultState = {
 export const GlobalContext = createContext<GlobalContextProps>(defaultState);
 
 export const GlobalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [date, setDate] = useState<Date>(new Date());
+    const [date, setDate] = useState(dayjs());
     const [contents, setContents] = useState<string>('');
     const [category, setCategory] = useState<string>('');
     const [subTotal, setSubTotal] = useState<string>('');

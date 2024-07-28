@@ -1,14 +1,5 @@
-.text-box {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.box-contents {
     margin-top: 20px;
-    text-align: center;
-}
-
-.register-btn {
-    width: 100px;
-    margin: 0 auto;
 }
 
 .test {

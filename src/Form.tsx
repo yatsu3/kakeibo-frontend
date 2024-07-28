@@ -1,9 +1,15 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import DatePicker, {registerLocale} from 'react-datepicker';
 import {ja} from 'date-fns/locale';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import "react-datepicker/dist/react-datepicker.css"
 import "../src/Common.css";
 import { GlobalContext } from "./context/GlobalContext";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
+import 'dayjs/locale/ja';
+import dayjs from "dayjs";
+
+dayjs.locale('ja');
 const Form: React.FC = () => {
     const {date, setDate} = useContext(GlobalContext);
     const {contents, setContents} = useContext(GlobalContext);
@@ -12,7 +18,7 @@ const Form: React.FC = () => {
     const {isExpenses, setIsExpenses} = useContext(GlobalContext);
 
     useEffect(() => {
-      setCategory(isExpenses ? "食費" : "給料")
+      setCategory("");
     }, [isExpenses]);
 
     const kakeiboInfo = {
@@ -23,13 +29,11 @@ const Form: React.FC = () => {
       isExpenses
     }
 
-    registerLocale('ja', ja);
-
     const handleChangeContents = (event: React.ChangeEvent<HTMLInputElement>) => {
       setContents(event.target.value);
     }
 
-    const handleChangeCategory = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleChangeCategory = (event: SelectChangeEvent<string>) => {
       setCategory(event.target.value);
     }
 
@@ -50,7 +54,7 @@ const Form: React.FC = () => {
           body: JSON.stringify(kakeiboInfo)
         });
         setContents("");
-        setCategory("食費");
+        setCategory("");
         setSubTotal("");
       } catch (error) {
         console.error("ERROR!")
@@ -61,43 +65,56 @@ const Form: React.FC = () => {
     
     return (
       <>
-        <div className="text-box">
-          <span>日付：
-            <DatePicker
-              dateFormat="yyyy-MM-dd"
-              selected={date}
-              onChange={(selectedDate: any) => {setDate(selectedDate || new Date())}}
-              locale='ja'
-            />
-          </span>
-          <span>内容：
-            <input type="text" placeholder="パスタ" value={contents} onChange={handleChangeContents}></input>
-          </span>
-          <span>カテゴリー：
-            {isExpenses ?
-            <select id="dropdown" className="dropdown" onChange={handleChangeCategory} value={category}>
-              <option value="食費">食費</option>
-              <option value="雑費">雑費</option>
-              <option value="交通費">交通費</option>
-              <option value="固定費">固定費</option>
-              <option value="その他">その他</option>
-            </select>
+      <div className="box-contents">
+      <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      minHeight="100vh"
+      sx={{ gap: 2 }} // 親ボックスにギャップを追加
+      >
+            <LocalizationProvider dateAdapter={AdapterDayjs} dateFormats={{ year: 'YYYY年'}}>
+              <DatePicker value={date} label="日付" format="YYYY/MM/DD" slotProps={{ calendarHeader: { format: 'YYYY年MM月'}}}/>
+            </LocalizationProvider>
+          <TextField id="outlined-basic" label="内容" variant="outlined" sx={{ maxWidth: 360, width: '100%' }} value={contents} onChange={handleChangeContents}/>
+          <FormControl sx={{ maxWidth: 360, width: '100%' }}>
+            <InputLabel id="demo-simple-select-label">食費</InputLabel>
+            { isExpenses ?
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={category}
+              label="カテゴリー"
+              onChange={handleChangeCategory}
+            >
+              <MenuItem value="食費" selected>食費</MenuItem>
+              <MenuItem value="雑費">雑費</MenuItem>
+              <MenuItem value="交通費">交通費</MenuItem>
+              <MenuItem value="固定費">固定費</MenuItem>
+              <MenuItem value="その他">その他</MenuItem>
+            </Select>
             :
-            <select id="dropdown" className="dropdown" onChange={handleChangeCategory} value={category}>
-              <option value="給料">給料</option>
-              <option value="副業">副業</option>
-              <option value="臨時収入">臨時収入</option>
-              <option value="おこづかい">おこづかい</option>
-              <option value="その他">その他</option>
-            </select>}
-          </span>
-          <span>合計：
-            <input type="number" value={subTotal} onChange={handleChangesubTotal}></input>
-          </span>
-          {isExpenses ? <input type="button" value="支出を入力" onClick={registerKakeibo} className="register-btn"/>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={category}
+              label="カテゴリー"
+              onChange={handleChangeCategory}
+            >
+              <MenuItem value="給料" selected>給料</MenuItem>
+              <MenuItem value="副業">副業</MenuItem>
+              <MenuItem value="臨時収入">臨時収入</MenuItem>
+              <MenuItem value="おこづかい">おこづかい</MenuItem>
+              <MenuItem value="その他">その他</MenuItem>
+            </Select>}
+          </FormControl>
+          <TextField id="outlined-basic" label="合計" variant="outlined" sx={{ maxWidth: 360, width: '100%' }} value={subTotal} onChange={handleChangesubTotal}/>
+
+          {isExpenses ? <Button variant="contained" onClick={registerKakeibo}>支出を入力</Button>
           :
-          <input type="button" value="収入を入力" onClick={registerKakeibo} className="register-btn"/>}
-        </div>
+          <Button variant="contained" onClick={registerKakeibo}>収入を入力</Button>}
+          </Box>
+          </div>
       </>
     );
 }
