@@ -21,6 +21,7 @@ const Header: React.FC = () => {
             <Button color="inherit" onClick={() => {setIsExpenses(true); navigate('/');}}>支出</Button>
             <Button color="inherit" onClick={() => {setIsExpenses(false); navigate('/');}}>収入</Button>
             <Button color="inherit" onClick={() => navigate('/report')}>レポート</Button>
+            <Button color="inherit" onClick={() => navigate('/register-user')}>ユーザー登録</Button>
       </Toolbar>
     </AppBar>
     );
