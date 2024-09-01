@@ -7,6 +7,7 @@ import Form from './Form';
 import {GlobalProvider} from './context/GlobalContext';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Report from './Report';
+import RegisterUser from './RegisterUser';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,6 +19,7 @@ root.render(
         <Routes>
           <Route path="/" element={<Form />} />
           <Route path="/report" element={<Report />} />
+          <Route path="/register-user" element={<RegisterUser />} />
         </Routes>
       </Router>
     </GlobalProvider>
