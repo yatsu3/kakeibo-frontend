@@ -3,12 +3,12 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { TextField, Button, Box, Typography, Container, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 
 type FormValues = {
-  name: string;
-  email: string;
+  userName: string;
+  mailAddress: string;
   password: string;
   age: number;
   gender: string;
-  prefecture: string;
+  address: string;
 };
 
 const prefectures = [
@@ -26,7 +26,7 @@ const UserRegistration: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
     const [gender, setGender] = useState<string>('');
-    const [prefecture, setPrefecture] = useState<string>('');
+    const [address, setPrefecture] = useState<string>('');
 
     const onSubmit: SubmitHandler<FormValues> = async (data) => {
         try {
@@ -46,12 +46,13 @@ const UserRegistration: React.FC = () => {
                 throw new Error('Network response was not ok');
             }
 
-
-
-            console.log('User registered successfully:');
+            alert("ユーザー登録完了しました。");
+            setGender("");
+            setPrefecture("");
             // 登録成功後の処理
         } catch (error) {
             console.error('Error registering user:', error);
+            alert("ユーザーはすでに入力したメールアドレスで登録されています。")
             // エラーハンドリング
         }
     };
@@ -74,11 +75,11 @@ const UserRegistration: React.FC = () => {
                         variant="outlined"
                         margin="normal"
                         fullWidth
-                        id="name"
+                        id="userName"
                         label="ユーザー名"
-                        {...register('name', { required: 'ユーザー名が入力されてません' })}
-                        error={!!errors.name}
-                        helperText={errors.name ? errors.name.message : ''}
+                        {...register('userName', { required: 'ユーザー名が入力されてません' })}
+                        error={!!errors.userName}
+                        helperText={errors.userName ? errors.userName.message : ''}
                     />
                     <TextField
                         variant="outlined"
@@ -118,40 +119,40 @@ const UserRegistration: React.FC = () => {
                         {errors.gender && <Typography color="error">{errors.gender.message}</Typography>}
                     </FormControl>
                     <FormControl fullWidth variant="outlined" margin="normal">
-                        <InputLabel id="prefecture-label">住所</InputLabel>
+                        <InputLabel id="address-label">住所</InputLabel>
                         <Select
-                            labelId="prefecture-label"
-                            id="prefecture"
+                            labelId="address-label"
+                            id="address"
                             label="住所"
-                            value={prefecture}
-                            {...register('prefecture', { required: '住所が選択されていません' })}
-                            error={!!errors.prefecture}
+                            value={address}
+                            {...register('address', { required: '住所が選択されていません' })}
+                            error={!!errors.address}
                             onChange={(e) => setPrefecture(e.target.value)}
                         >
-                            {prefectures.map(prefecture => (
-                                <MenuItem key={prefecture} value={prefecture}>
-                                    {prefecture}
+                            {prefectures.map(address => (
+                                <MenuItem key={address} value={address}>
+                                    {address}
                                 </MenuItem>
                             ))}
                         </Select>
-                        {errors.prefecture && <Typography color="error">{errors.prefecture.message}</Typography>}
+                        {errors.address && <Typography color="error">{errors.address.message}</Typography>}
                     </FormControl>
                     <TextField
                         variant="outlined"
                         margin="normal"
                         fullWidth
-                        id="email"
+                        id="mailaddress"
                         label="メールアドレス"
                         type="email"
-                        {...register('email', {
+                        {...register('mailAddress', {
                             required: 'メールアドレスが入力されていません',
                             pattern: {
                                 value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
                                 message: 'メールアドレスの形式が誤っています'
                             }
                         })}
-                        error={!!errors.email}
-                        helperText={errors.email ? errors.email.message : ''}
+                        error={!!errors.mailAddress}
+                        helperText={errors.mailAddress ? errors.mailAddress.message : ''}
                     />
                     <TextField
                         variant="outlined"
