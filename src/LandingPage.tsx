@@ -24,7 +24,7 @@ const LandingPage: React.FC = () => {
           <SectionTitle>今すぐ始めましょう！</SectionTitle>
           <ButtonContainer>
             <StyledLink to="/sign-up">無料登録</StyledLink>
-            <StyledLink to="/login" secondary>
+            <StyledLink to="/login">
               ログイン
             </StyledLink>
           </ButtonContainer>
@@ -89,7 +89,7 @@ const ButtonContainer = styled.div`
   margin-top: 20px;
 `;
 
-const StyledLink = styled(Link)<{ secondary?: boolean }>`
+const StyledLink = styled(Link)`
   display: inline-block;
   margin: 10px;
   padding: 10px 20px;
@@ -97,7 +97,7 @@ const StyledLink = styled(Link)<{ secondary?: boolean }>`
   color: white;
   text-decoration: none;
   border-radius: 5px;
-  background-color: ${(props) => (props.secondary ? "#007bff" : "#4caf50")};
+  background-color: #007bff;
 
   &:hover {
     opacity: 0.8;
