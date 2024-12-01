@@ -1,33 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
-import Header from './Header';
-import Form from './Form';
-import {GlobalProvider} from './context/GlobalContext';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Report from './Report';
-import RegisterUser from './RegisterUser';
-import Auth from './Auth';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-    <GlobalProvider>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Form />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/report" element={<Report />} />
-          <Route path="/register-user" element={<RegisterUser />} />
-        </Routes>
-      </Router>
-    </GlobalProvider>
+  document.getElementById("root") as HTMLElement
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// パフォーマンス測定
 reportWebVitals();

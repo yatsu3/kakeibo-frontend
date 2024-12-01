@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { auth } from "./firebase";
 import {
-  createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom"
 import {
@@ -12,8 +12,7 @@ import {
   TextField,
 } from "@mui/material";
 
-// TODO: 不要のため削除予定
-const Auth: React.FC = () => {
+const SignUp: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -21,21 +20,9 @@ const Auth: React.FC = () => {
 
   const navigate = useNavigate()
 
-  const Register = async () => {
+  const SignUp = async () => {
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        navigate("/");
-      })
-      .catch((error) => {
-        alert(error.message);
-        console.error(error);
-      });
-  };
-
-  const Login = async () => {
-    await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log(userCredential);
         navigate("/");
       })
       .catch((error) => {
@@ -57,7 +44,7 @@ const Auth: React.FC = () => {
         <Grid container>
           <Grid item md={4}></Grid>
           <Grid item md={4}>
-            <h2>{isLogin ? "新規登録" : "ログイン"}</h2>
+            <h2>新規登録</h2>
             <Box component="form">
               <TextField
                 style={{ marginTop: "0.5em", marginBottom: "0.5em" }}
@@ -84,19 +71,10 @@ const Auth: React.FC = () => {
               <Button
                 fullWidth
                 style={{ marginTop: "0.5em", marginBottom: "0.5em" }}
-                onClick={isLogin ? Register : Login}
+                onClick={SignUp}
               >
-                {isLogin ? "新規登録" : "ログイン"}
+                新規登録
               </Button>
-              <Grid container>
-                <Grid item>
-                  <span
-                    onClick={() => setIsLogin(!isLogin)}
-                  >
-                    {isLogin ? "ログインしますか?" : "新規登録しますか？"}
-                  </span>
-                </Grid>
-              </Grid>
             </Box>
           </Grid>
         </Grid>
@@ -106,4 +84,4 @@ const Auth: React.FC = () => {
 
 };
 
-export default Auth;
+export default SignUp;

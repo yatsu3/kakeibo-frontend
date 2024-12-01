@@ -12,7 +12,6 @@ import {
   TextField,
 } from "@mui/material";
 
-// TODO: 不要のため削除予定
 const Auth: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -20,17 +19,6 @@ const Auth: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   const navigate = useNavigate()
-
-  const Register = async () => {
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        navigate("/");
-      })
-      .catch((error) => {
-        alert(error.message);
-        console.error(error);
-      });
-  };
 
   const Login = async () => {
     await signInWithEmailAndPassword(auth, email, password)
@@ -57,7 +45,7 @@ const Auth: React.FC = () => {
         <Grid container>
           <Grid item md={4}></Grid>
           <Grid item md={4}>
-            <h2>{isLogin ? "新規登録" : "ログイン"}</h2>
+            <h2>ログイン</h2>
             <Box component="form">
               <TextField
                 style={{ marginTop: "0.5em", marginBottom: "0.5em" }}
@@ -84,19 +72,10 @@ const Auth: React.FC = () => {
               <Button
                 fullWidth
                 style={{ marginTop: "0.5em", marginBottom: "0.5em" }}
-                onClick={isLogin ? Register : Login}
+                onClick={Login}
               >
-                {isLogin ? "新規登録" : "ログイン"}
+                ログイン
               </Button>
-              <Grid container>
-                <Grid item>
-                  <span
-                    onClick={() => setIsLogin(!isLogin)}
-                  >
-                    {isLogin ? "ログインしますか?" : "新規登録しますか？"}
-                  </span>
-                </Grid>
-              </Grid>
             </Box>
           </Grid>
         </Grid>
