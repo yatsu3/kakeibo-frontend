@@ -8,6 +8,7 @@ import {GlobalProvider} from './context/GlobalContext';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Report from './Report';
 import RegisterUser from './RegisterUser';
+import Auth from './Auth';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,6 +19,7 @@ root.render(
         <Header />
         <Routes>
           <Route path="/" element={<Form />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/report" element={<Report />} />
           <Route path="/register-user" element={<RegisterUser />} />
         </Routes>
