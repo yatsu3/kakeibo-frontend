@@ -5,6 +5,7 @@ import { GlobalContext } from "./context/GlobalContext";
 import "../src/Common.css";
 import { useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from "firebase/auth";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Header: React.FC = () => {
     const navigate = useNavigate();
@@ -33,8 +34,8 @@ const Header: React.FC = () => {
             <Button color="inherit" onClick={() => {setIsExpenses(true); navigate('/');}}>支出</Button>
             <Button color="inherit" onClick={() => {setIsExpenses(false); navigate('/');}}>収入</Button>
             <Button color="inherit" onClick={() => navigate('/report')}>レポート</Button>
-            <Button color="inherit" onClick={() => navigate('/register-user')}>ユーザー登録</Button>
             <Button color="inherit" onClick={() => logout()}>ログアウト</Button>
+            <Button color="inherit" onClick={() => navigate('/update-user')}><AccountCircleIcon/></Button>
       </Toolbar>
     </AppBar>
     );
