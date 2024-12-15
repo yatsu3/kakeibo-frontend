@@ -6,7 +6,7 @@ import { GlobalProvider } from "./context/GlobalContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Form from "./Form";
 import Report from "./Report";
-import RegisterUser from "./RegisterUser";
+import UpdateUser from "./UpdateUser";
 import Header from "./Header";
 import LandingPage from "./LandingPage";
 import SignUp from "./SignUp";
@@ -35,7 +35,7 @@ const App: React.FC = () => {
             <Routes>
               <Route path="/" element={<Form />} />
               <Route path="/report" element={<Report />} />
-              <Route path="/register-user" element={<RegisterUser />} />
+              <Route path="/update-user" element={<UpdateUser />} />
             </Routes>
           </>
         ) : ( // 未ログインの場合
